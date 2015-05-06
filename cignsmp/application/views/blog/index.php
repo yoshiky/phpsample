@@ -2,20 +2,20 @@
 <html lang="ja">
     <head>
         <meta charset="utf-8" />
-        <title>blog index</title>
+        <title>Index</title>
     </head>
     <body>
         <?php if($this->session->flashdata('notice')) : ?>
-            <div id="notice" style="coloer: green;">
+            <div id="notice" style="background-color: lightgreen;">
                 <?php echo $this->session->flashdata('notice'); ?>
             </div>
         <?php endif; ?>
 
-        <a href="<? php echo site_url('blog/new_record');?> ">New Record</a>
+        <a href="<?php echo site_url('blog/new_record');?>">New Record</a>
 
-        <h1>Blog Index</h1>
+        <h1>ブログ一覧</h1>
         <?php if ($records) : ?>
-            <table>
+            <table border="1">
                 <thead>
                     <tr>
                         <th>id</th>

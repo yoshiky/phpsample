@@ -18,7 +18,15 @@ class Blog_model extends CI_Model
         return FALSE;
     }
 
-    function insert($post)
+    function new_record()
+    {
+        $array = array(
+            'title' => "",
+        );
+        return $array;
+    }
+
+    function create($post)
     {
         $this->db->insert('blog', $post);
         //挿入できたIDを返す
