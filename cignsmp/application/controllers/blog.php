@@ -37,14 +37,27 @@ class Blog extends CI_Controller
 
             $insert_id = $this->blog->create($post);
             $this->session->set_flashdata('notice', '作成しました。');
-            //redirect('blog/show'.$insert_id);
-            redirect('blog/index');
+            redirect('blog/show'.$insert_id);
         }
         else
         {
             $data['validation_errors'] = validation_errors();
             $data['record'] = $this->blog->new_record();
             $this->load->view('blog/new_record', $data);
+        }
+    }
+
+    function show($id)
+    {
+        $data = array();
+        $data['record'] = $this->blog->find($id);
+        if($data['record'] != FALSE)
+        {
+            $this->load->view('blog/show', $data);
+        }
+        else
+        {
+            redirect('blog/index');
         }
     }
 

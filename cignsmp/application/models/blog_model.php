@@ -33,6 +33,16 @@ class Blog_model extends CI_Model
         return $this->db->insert_id();
     }
 
+    function find($id)
+    {
+        $query = $this->db->get_where('blog', array('id' => $id));
+        if($query)
+        {
+            return (array)$query->row();
+        }
+        return FALSE;
+    }
+
 
 
 }
