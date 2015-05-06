@@ -9,8 +9,7 @@ class Blog_model extends CI_Model
 
     function all()
     {
-        //$query = $this->db->order_by('created_at', 'desc')->get('blog');
-        $query = $this->db->get('blog');
+        $query = $this->db->order_by('id')->get('blog');
         if($query)
         {
             return $query->result();
@@ -41,6 +40,11 @@ class Blog_model extends CI_Model
             return (array)$query->row();
         }
         return FALSE;
+    }
+
+    function update($post)
+    {
+        $this->db->update('blog', $post, array('id' => $post['id']));
     }
 
 

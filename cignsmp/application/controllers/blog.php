@@ -37,7 +37,7 @@ class Blog extends CI_Controller
 
             $insert_id = $this->blog->create($post);
             $this->session->set_flashdata('notice', '作成しました。');
-            redirect('blog/show'.$insert_id);
+            redirect('blog/show/'.$insert_id);
         }
         else
         {
@@ -58,6 +58,43 @@ class Blog extends CI_Controller
         else
         {
             redirect('blog/index');
+        }
+    }
+
+    function edit($id)
+    {
+        $data = array();
+        $data['record'] = $this->blog->find($id);
+        if($data['record'] != FALSE)
+        {
+            $this->load->view('blog/edit', $data);
+        }
+        else
+        {
+            redirect('blog/index');
+        }
+    }
+
+    function update()
+    {
+        $data = array();
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('title', 'タイトル', 'required|min_length[2]|max_length[20]');
+        if($this->form_validation->run())
+        {
+            $post = array(
+                'id' => $this->input->post('id'),
+                'title' => $this->input->post('title')
+            );
+            $this->blog->update($post);
+            $this->session->set_flashdata('notice', 'レコードを更新しました。');
+            redirect('blog/show/' . $post['id']);
+        }
+        else
+        {
+            $data['validation_errors'] = validation_errors();
+            $data['record'] = $this->blog->find($this->input->post('id'));
+            $this->load->view('blog/edit', $data);
         }
     }
 
