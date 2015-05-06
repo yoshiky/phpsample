@@ -98,6 +98,23 @@ class Blog extends CI_Controller
         }
     }
 
+    function delete($id)
+    {
+        $data = array();
+        $data['record'] = $this->blog->find($id);
+        if($data['record'] != FALSE)
+        {
+            $this->blog->delete($id);
+            $this->session->set_flashdata('notice', '削除しました。');
+            redirect('blog/index');
+        }
+        else
+        {
+            $this->session->set_flashdata('error', '対象データが取得できませんでした。');
+            redirect('blog/index');
+        }
+    }
+
     private
     function _get_created_at_date()
     {
